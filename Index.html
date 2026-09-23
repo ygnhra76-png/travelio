@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Travelio</title>
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<input
+    type="checkbox"
+    id="dark-mode-toggle"
+    class="dark-mode-toggle"
+>
+
+<label
+    for="dark-mode-toggle"
+    class="dark-mode-button"
+    aria-label="تغییر حالت تاریک و روشن"
+>
+    <i class="fa-solid fa-moon"></i>
+</label>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+
+      <div class="social-links">
+        <a href="mailto:info@travelio.com">
+          <i class="fa-regular fa-envelope"></i>
+          info@travelio.com
+        </a>
+
+        <a href="tel:+982112345678">
+          <i class="fa-solid fa-phone"></i>
+          021-12345678
+        </a>
+      </div>
+
+      <nav class="social-links">
+        <a href="#">
+          <i class="fa-brands fa-instagram"></i>
+          Instagram
+        </a>
+
+        <a href="#">
+          <i class="fa-brands fa-telegram"></i>
+          Telegram
+        </a>
+
+        <a href="#">
+          <i class="fa-brands fa-square-facebook"></i>
+          Facebook
+        </a>
+
+        <a href="#">
+          <i class="fa-brands fa-linkedin"></i>
+          LinkedIn
+        </a>
+      </nav>
+
+    </div>
+
+
+    <div class="main-header">
+
+    <div class="logo">
+        <a href="#home">
+            <i class="fa-solid fa-plane"></i>
+            <span>Travelio</span>
+        </a>
+    </div>
+
+    <!-- MOBILE MENU -->
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+    <label for="menu-toggle" class="menu-button" aria-label="باز کردن منوی سایت">
+        <i class="fa-solid fa-bars"></i>
+    </label>
+
+    <nav class="main-nav">
+        <a href="#home" class="active">خانه</a>
+        <a href="#">تورها</a>
+        <a href="#destination">مقاصد</a>
+        <a href="#blog">وبلاگ</a>
+        <a href="#about">درباره ما</a>
+        <a href="#contact">تماس با ما</a>
+    </nav>
+
+    <a href="#" class="login-btn">
+        <span>ورود / ثبت‌نام</span>
+    </a>
+
+</div>
+  <!-- ================= MAIN ================= -->
+  <!--HERO--> 
+ 
+<main> 
+ 
+    <section class="hero" id="home"> 
+ 
+        <div class="hero-content"> 
+             
+            <h1>سفرهای به یادماندنی را با ما تجربه کنید</h1> 
+             
+            <p>بهترین تورهای گردشگری داخلی و خارجی  
+                با بهترین قیمت همراه با  
+                خدمات ویژه و پشتیبانی 24 ساعته 
+            </p> 
+ 
+            <a href="#" class="hero-button">مشاهده تورها</a> 
+ 
+        </div> 
+ 
+        <form class="tour-search"> 
+ 
+            <div class="form-group"> 
+                <label for="origin">مبدا</label> 
+                <input type="text" 
+                 id="origin"  
+                 placeholder="مبدا را وارد کنید" 
+                 name="origin"> 
+            </div> 
+              
+            <div class="form-group"> 
+                <label for="destinition">مقصد</label> 
+                <input type="text" 
+                 id="destinition"  
+                 placeholder="مقصد را وارد کنید" 
+                 name="destinition"> 
+            </div> 
+ 
+             <div class="form-group"> 
+                <label for="departure">تاریخ رفت</label> 
+                <input 
+    type="text" 
+    id="departure" 
+    name="departure" 
+    placeholder="۱۴۰۵/۰۶/۲۱" 
+> 
+            </div> 
+ 
+            <div class="form-group"> 
+                <label for="return">تاریخ برگشت</label> 
+                <input 
+    type="text" 
+    id="return" 
+    name="return" 
+    placeholder="۱۴۰۵/۰۶/۲۵" 
+> 
+            </div> 
+ 
+            <div class="form-group"> 
+                <label for="passengers">تعداد مسافر</label> 
+ 
+ 
+            <select id="passengers" name="passengers"> 
+                    <option value="1">۱ نفر</option> 
+                    <option value="2">۲ نفر</option> 
+                    <option value="3">۳ نفر</option> 
+                    <option value="4">۴ نفر</option> 
+                    <option value="5">۵ نفر</option> 
+            </select> 
+            </div> 
+ 
+            <button type="submit">جستجو</button> 
+ 
+         </form> 
+ 
+    </section> 
+ 
+
+    <!-- ================= SERVICES ================= -->
+    <section class="services" id="tours">
+
+      <div class="section-title">
+
+        <h2>خدمات Travelio</h2>
+
+        <p>
+          همه چیز برای داشتن یک سفر راحت و خاطره‌انگیز
+        </p>
+
+      </div>
+
+
+      <div class="service-container">
+
+        <article class="service-card">
+
+          <i class="fa-solid fa-plane"></i>
+
+          <h3>رزرو پرواز</h3>
+
+          <p>
+            رزرو آسان پرواز با بهترین قیمت‌ها و مناسب‌ترین زمان‌ها.
+          </p>
+
+        </article>
+
+
+        <article class="service-card">
+
+          <i class="fa-solid fa-hotel"></i>
+
+          <h3>رزرو هتل</h3>
+
+          <p>
+            انتخاب و رزرو هتل‌های مناسب در مقصدهای مختلف.
+          </p>
+
+        </article>
+
+
+        <article class="service-card">
+
+          <i class="fa-solid fa-map-location-dot"></i>
+
+          <h3>تورهای گردشگری</h3>
+
+          <p>
+            تجربه تورهای جذاب و برنامه‌ریزی‌شده برای مقصدهای محبوب.
+          </p>
+
+        </article>
+
+
+        <article class="service-card">
+
+          <i class="fa-solid fa-headset"></i>
+
+          <h3>پشتیبانی</h3>
+
+          <p>
+            همراهی و پشتیبانی در طول سفر برای داشتن تجربه‌ای بهتر.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= DESTINATIONS ================= -->
+    <section class="destinations" id="destinitions">
+
+      <div class="section-title">
+
+        <h2>محبوب‌ترین مقاصد</h2>
+
+        <p>
+          مقصدهای محبوبی که می‌توانند شروع یک سفر فوق‌العاده باشند.
+        </p>
+
+      </div>
+
+
+      <div class="destination-container">
+
+
+        <!-- Bali -->
+        <article class="destination-card">
+
+          <img src="images/bali.png" alt="نمایی از شهر بالی">
+
+          <h3>بالی</h3>
+
+          <p class="tour-price">
+            ۲۵,۰۰۰,۰۰۰ تومان
+          </p>
+
+          <span class="discount">
+            ۲۰٪ تخفیف
+          </span>
+
+          <a href="#" class="details-button">
+            مشاهده جزئیات
+          </a>
+
+        </article>
+
+
+        <!-- Paris -->
+        <article class="destination-card">
+
+          <img src="images/paris.png" alt="نمایی از شهر پاریس">
+
+          <h3>پاریس</h3>
+
+          <p class="tour-price">
+            ۳۰,۰۰۰,۰۰۰ تومان
+          </p>
+
+          <span class="discount">
+            ۱۵٪ تخفیف
+          </span>
+
+          <a href="#" class="details-button">
+            مشاهده جزئیات
+          </a>
+
+        </article>
+
+
+        <!-- Istanbul -->
+        <article class="destination-card">
+
+          <img src="images/istanbul.png" alt="نمایی از شهر استانبول">
+
+          <h3>استانبول</h3>
+
+          <p class="tour-price">
+            ۱۸,۰۰۰,۰۰۰ تومان
+          </p>
+
+          <span class="discount">
+            ۲۵٪ تخفیف
+          </span>
+
+          <a href="#" class="details-button">
+            مشاهده جزئیات
+          </a>
+
+        </article>
+
+
+        <!-- Dubai -->
+        <article class="destination-card">
+
+          <img src="images/dubai.png" alt="نمایی از شهر دبی">
+
+          <h3>دبی</h3>
+
+          <p class="tour-price">
+            ۲۰,۰۰۰,۰۰۰ تومان
+          </p>
+
+          <span class="discount">
+            ۱۰٪ تخفیف
+          </span>
+
+          <a href="#" class="details-button">
+            مشاهده جزئیات
+          </a>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= BLOG ================= -->
+    <section class="blog" id="blog">
+
+      <div class="section-title">
+
+        <h2>آخرین مقالات وبلاگ</h2>
+
+        <p>
+          نکات و مطالب کاربردی برای داشتن سفری بهتر.
+        </p>
+
+      </div>
+
+
+      <div class="blog-container">
+
+        <article class="blog-card">
+
+          <img src="images/blog1.png" alt="مقاله گردشگری">
+
+          <h3>چگونه یک سفر خوب برنامه‌ریزی کنیم؟</h3>
+
+          <time datetime="2026-09-01">
+            ۱۰ شهریور ۱۴۰۵
+          </time>
+
+          <p>
+            نکاتی ساده برای برنامه‌ریزی بهتر و داشتن سفری راحت.
+          </p>
+
+          <a href="#" class="read-more">
+            ادامه مطلب
+          </a>
+
+        </article>
+
+
+        <article class="blog-card">
+
+          <img src="images/blog2.png" alt="مقاله سفر">
+
+          <h3>مقصدهای محبوب برای سفر</h3>
+
+          <time datetime="2026-09-05">
+            ۱۴ شهریور ۱۴۰۵
+          </time>
+
+          <p>
+            با چند مقصد جذاب برای سفر آشنا شوید.
+          </p>
+
+          <a href="#" class="read-more">
+            ادامه مطلب
+          </a>
+
+        </article>
+
+
+        <article class="blog-card">
+
+          <img src="images/blog3.png" alt="مقاله گردشگری">
+
+          <h3>نکات مهم قبل از سفر</h3>
+
+          <time datetime="2026-09-10">
+            ۱۹ شهریور ۱۴۰۵
+          </time>
+
+          <p>
+            چیزهایی که بهتر است قبل از شروع سفر بدانید.
+          </p>
+
+          <a href="#" class="read-more">
+            ادامه مطلب
+          </a>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+    <section class="about-travelio" id="about">
+
+      <div class="section-title">
+
+        <h2>چرا Travelio؟</h2>
+
+      </div>
+
+
+      <div class="about-content">
+
+        <div class="about-text">
+
+          <h3>همراه شما در هر سفر</h3>
+
+          <p>
+            Travelio تلاش می‌کند برنامه‌ریزی سفر را برای شما ساده‌تر،
+            سریع‌تر و لذت‌بخش‌تر کند.
+          </p>
+
+
+          <h3>Travelio چه امکاناتی دارد؟</h3>
+
+          <ul>
+            <li>رزرو تورهای مختلف</li>
+            <li>رزرو هتل و پرواز</li>
+            <li>معرفی مقصدهای محبوب</li>
+            <li>پشتیبانی در طول سفر</li>
+          </ul>
+
+
+          <a href="#" class="more-link">
+            بیشتر درباره ما
+          </a>
+
+        </div>
+
+
+        <div class="about-image">
+
+          <img src="images/bout.png" alt="تصویر Travelio">
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= NEWSLETTER ================= -->
+    <section class="newsletter">
+
+      <div class="section-title">
+
+        <h2>عضویت در خبرنامه</h2>
+
+        <p>
+          برای دریافت جدیدترین پیشنهادهای سفر ایمیل خود را وارد کنید.
+        </p>
+
+      </div>
+
+
+      <form class="newsletter-form">
+
+        <input
+          type="email"
+          placeholder="ایمیل شما"
+          aria-label="ایمیل شما"
+          required
+        >
+
+        <button type="submit">
+          عضویت
+        </button>
+
+      </form>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+
+    <div class="footer-container" id="contact">
+
+
+      <div class="footer-column">
+
+        <h3>Travelio</h3>
+
+        <p>
+          همراه شما برای تجربه سفری بهتر و به‌یادماندنی.
+        </p>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>دسترسی سریع</h3>
+
+        <a href="#home">خانه</a>
+        <a href="#about">درباره ما</a>
+        <a href="#destinitions">مقاصد</a>
+        <a href="#blog">وبلاگ</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>خدمات</h3>
+
+        <a href="#">رزرو پرواز</a>
+        <a href="#">رزرو هتل</a>
+        <a href="#">تورهای گردشگری</a>
+        <a href="#">پشتیبانی</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>تماس با ما</h3>
+
+        <p>
+          info@travelio.com
+        </p>
+
+        <p>
+          021-12345678
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+      <p>
+        © 2026 Travelio. تمامی حقوق محفوظ است.
+      </p>
+
+    </div>
+
+  </footer>
+
+</body>
+
+</html>
