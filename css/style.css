@@ -123,7 +123,6 @@ label:focus-visible {
     animation-delay: 0.3s;
 }
 
-
 .destination-card,
 .destinition-cards {
     animation: fadeIn 0.7s ease both;
@@ -137,7 +136,187 @@ label:focus-visible {
     animation: fadeIn 0.8s ease both;
 }
 
+/* =========================================================
+   CSS-ONLY MODAL (:target)
+========================================================= */
 
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* وقتی :target فعال شد، مودال نمایش داده میشه */
+.modal:target {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* پس‌زمینه تاریک — خودش یه لینک بستنه */
+.modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 20, 17, 0.7);
+    backdrop-filter: blur(4px);
+    text-decoration: none;
+}
+
+/* جعبه مودال */
+.modal-box {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    max-width: 600px;
+    max-height: 85vh;
+    overflow-y: auto;
+
+    background: var(--surface-color);
+    color: var(--text-color);
+
+    border-radius: var(--border-radius);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+
+    padding: 35px 30px;
+
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.3s ease;
+}
+
+.modal:target .modal-box {
+    transform: translateY(0) scale(1);
+}
+
+/* دکمه بستن */
+.modal-close {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(95, 143, 59, 0.12);
+    color: var(--primary-color);
+
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 16px;
+
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    background: var(--primary-color);
+    color: #ffffff;
+    transform: rotate(90deg);
+}
+
+/* محتوا */
+.modal-box img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 18px;
+}
+
+.modal-box h2 {
+    margin: 0 0 10px;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.modal-meta {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 5px 12px;
+
+    background: rgba(95, 143, 59, 0.12);
+    color: var(--primary-color);
+
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.modal-box p {
+    margin: 0 0 14px;
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.modal-box ul {
+    margin: 0 0 16px;
+    padding-right: 20px;
+    color: var(--text-light);
+}
+
+.modal-box li {
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.modal-box li::marker {
+    color: var(--primary-color);
+}
+
+.modal-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 10px;
+    padding: 11px 20px;
+
+    background: var(--primary-color);
+    color: #ffffff;
+
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: var(--transition);
+}
+
+.modal-cta:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* دارک‌مود */
+body:has(#dark-mode-toggle:checked) .modal-box {
+    background: var(--surface-color);
+    color: var(--text-color);
+}
+
+body:has(#dark-mode-toggle:checked) .modal-box h2 {
+    color: var(--text-color);
+}
+
+body:has(#dark-mode-toggle:checked) .modal-box p,
+body:has(#dark-mode-toggle:checked) .modal-box li {
+    color: var(--text-light);
+}
 /* =========================================================
    TOP BAR
 ========================================================= */
@@ -202,117 +381,170 @@ a[href^="tel"] {
 
 
 /* =========================================================
-   MAIN HEADER / NAVBAR
+   HEADER
 ========================================================= */
+
+.site-header {
+    position: relative;
+    z-index: 1000;
+    width: 100%;
+}
 
 .main-header {
     width: 100%;
     min-height: 80px;
+    padding: 0 5%;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    padding: 0 5%;
+    gap: 35px;
 
     background-color: var(--surface-color);
     border-bottom: 1px solid var(--border-color);
 
-    position: relative;
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+    flex-shrink: 0;
 }
 
 .logo a {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 9px;
 
     color: var(--primary-color);
     text-decoration: none;
 
-    font-size: 24px;
+    font-size: 23px;
     font-weight: 800;
-    letter-spacing: 0.5px;
+
+    transition: var(--transition);
 }
 
-.plane-icon {
-    width: 30px;
-    height: 30px;
+.logo a i {
+    font-size: 22px;
+    transition: transform 0.4s ease;
 }
+
+.logo a:hover {
+    color: var(--primary-dark);
+}
+
+.logo a:hover i {
+    transform: rotate(-12deg) translateY(-2px);
+}
+
+
+/* =========================================================
+   MAIN NAV
+========================================================= */
 
 .main-nav {
-    
-    position: relative;
-    padding-bottom: 8px;
-    
     display: flex;
     align-items: center;
-    gap: 28px;
+    justify-content: center;
+    gap: 25px;
 }
 
 .main-nav a {
     position: relative;
 
+    padding: 10px 0;
+
     color: var(--text-color);
     text-decoration: none;
 
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
 
-    transition: var(--transition);
-}
-
-.main-nav a:hover {
-    color: var(--primary-color);
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
 }
 
 .main-nav a::after {
     content: "";
+
     position: absolute;
     right: 0;
-    bottom: 0;
-    width: 100%;
+    bottom: 2px;
+
+    width: 0;
     height: 2px;
-    background-color: var(--border-color);
+
+    background-color: var(--primary-light);
     border-radius: 10px;
-    transition: var(--transition);
+
+    transition: width 0.3s ease;
 }
 
+.main-nav a:hover {
+    color: var(--primary-light);
+}
 
 .main-nav a:hover::after {
-    background-color: var(--primary-light);
+    width: 100%;
 }
 
-.main-nav a:nth-child(2)::after {
-    display: none;
+.main-nav a.active {
+    color: var(--primary-color);
+    font-weight: 700;
 }
 
+.main-nav a.active::after {
+    width: 100%;
+    background-color: var(--primary-color);
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
 
 .login-btn {
+    flex-shrink: 0;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    padding: 10px 20px;
+    padding: 11px 20px;
 
     background-color: var(--primary-color);
     color: #ffffff;
 
-    border-radius: var(--border-radius);
+    border-radius: 10px;
 
     text-decoration: none;
 
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
 
-    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(95, 143, 59, 0.18);
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .login-btn:hover {
     background-color: var(--primary-dark);
+    color: #ffffff;
 
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 
-    box-shadow: 0 8px 20px rgba(1, 65, 24, 0.25);
+    box-shadow: 0 8px 20px rgba(95, 143, 59, 0.28);
 }
 
 
@@ -692,8 +924,6 @@ a[href^="tel"] {
    DESTINATIONS
 ========================================================= */
 
-
-
 .destinations {
     width: 100%;
 
@@ -709,8 +939,6 @@ a[href^="tel"] {
 
     gap: 24px;
 }
-
-
 
 .destination-card,
 .destinition-cards {
@@ -734,8 +962,6 @@ a[href^="tel"] {
     will-change: transform;
 }
 
-
-
 .destination-card:hover,
 .destinition-cards:hover {
     transform: translateY(-6px) scale(1.02);
@@ -744,7 +970,6 @@ a[href^="tel"] {
 
     border-color: var(--primary-light);
 }
-
 
 .destination-card img,
 .destinition-cards img {
@@ -760,14 +985,10 @@ a[href^="tel"] {
         filter 0.4s ease;
 }
 
-
-
 .destination-card:hover img,
 .destinition-cards:hover img {
     transform: scale(1.08);
 }
-
-
 
 .destination-card h3,
 .destinition-cards h3 {
@@ -781,8 +1002,6 @@ a[href^="tel"] {
     font-weight: 700;
 }
 
-
-
 .destination-card p,
 .destinition-cards p {
     margin: 0;
@@ -795,8 +1014,6 @@ a[href^="tel"] {
 
     line-height: 1.7;
 }
-
-
 
 .destination-card a,
 .destinition-cards a {
@@ -822,8 +1039,6 @@ a[href^="tel"] {
 
     transform: translateX(-4px);
 }
-
-
 
 .discount {
     position: absolute;
@@ -895,13 +1110,11 @@ a[href^="tel"] {
     border-color: var(--primary-light);
 }
 
-
-
 .blog-card img {
     display: block;
 
     width: 100%;
-    height:500px;
+    height: 500px;
 
     object-fit: cover;
 
@@ -910,12 +1123,9 @@ a[href^="tel"] {
         filter 0.4s ease;
 }
 
-
-
 .blog-card:hover img {
     transform: scale(1.06);
 }
-
 
 .blog-card h3 {
     margin: 20px 20px 8px;
@@ -1104,264 +1314,354 @@ a[href^="tel"] {
 ========================================================= */
 
 .newsletter {
-    width: 90%;
-    max-width: 1100px;
+    padding: 65px 5%;
 
-    margin: 80px auto;
+    background:
+        linear-gradient(
+            135deg,
+            var(--dark-bg),
+            var(--dark-surface)
+        );
 
-    padding: 55px 60px;
-
-    background: linear-gradient(
-        135deg,
-        var(--dark-bg),
-        var(--dark-surface)
-    );
-
-    border-radius: 24px;
-
-    box-shadow: 0 15px 40px rgba(38, 53, 31, 0.15);
-
-    text-align: center;
+    color: #ffffff;
 }
 
-.newsletter h2 {
-    margin-bottom: 12px;
+.newsletter-content {
+    max-width: var(--container-width);
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 50px;
+}
+
+.newsletter-text {
+    flex: 1;
+}
+
+.newsletter-label {
+    display: inline-block;
+
+    margin-bottom: 10px;
+
+    color: var(--primary-light);
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.newsletter-text h2 {
+    margin: 0 0 12px;
 
     color: #ffffff;
 
-    font-size: clamp(1.8rem, 3vw, 2.2rem);
-
-    font-weight: 800;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
 }
 
-.newsletter > p {
-    max-width: 600px;
+.newsletter-text p {
+    margin: 0;
 
-    margin: 0 auto 28px;
+    max-width: 500px;
 
-    color: rgba(255, 255, 255, 0.75);
-
-    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
 
     line-height: 1.9;
 }
 
 .newsletter-form {
-    width: 100%;
-    max-width: 600px;
-
-    margin: 0 auto;
+    flex: 1;
+    max-width: 500px;
 }
 
-.newsletter-form label {
+.newsletter-form > label {
     display: block;
 
     margin-bottom: 8px;
 
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.8);
 
     font-size: 13px;
-    font-weight: 600;
-
-    text-align: right;
 }
 
-.newsletter-form input {
-    width: 70%;
-    height: 48px;
+.newsletter-input-group {
+    display: flex;
+    gap: 10px;
+}
 
-    padding: 0 15px;
+.newsletter-input-group input {
+    flex: 1;
 
-    background-color: #ffffff;
+    min-width: 0;
 
-    color: var(--text-color);
+    padding: 14px 18px;
 
-    border: 2px solid transparent;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
 
     outline: none;
 
-    font-family: inherit;
-    font-size: 14px;
-
-    transition: var(--transition);
+    transition:
+        border-color 0.3s ease,
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
-.newsletter-form input::placeholder {
-    color: #9A9F94;
+.newsletter-input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.45);
 }
 
-.newsletter-form input:focus {
+.newsletter-input-group input:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+
     border-color: var(--primary-light);
 
     box-shadow:
         0 0 0 3px rgba(127, 169, 87, 0.2);
 }
 
-.newsletter-form button {
-    width: 25%;
-    height: 48px;
+.newsletter-input-group button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
-    margin-right: 5px;
+    padding: 0 20px;
+
+    background-color: var(--primary-color);
+    color: #ffffff;
 
     border: none;
     border-radius: 10px;
 
-    background-color: var(--primary-color);
-
-    color: #ffffff;
-
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-
     cursor: pointer;
 
-    transition: var(--transition);
+    font-family: inherit;
+    font-weight: 600;
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.3s ease;
 }
 
-.newsletter-form button:hover {
+.newsletter-input-group button:hover {
     background-color: var(--primary-light);
-
     transform: translateY(-2px);
-
-    box-shadow: 0 8px 20px rgba(95, 143, 59, 0.25);
 }
 
 
 /* =========================================================
-   FOOTER
+   FOOTER (BASE)
 ========================================================= */
 
 .footer {
     width: 100%;
+    margin-top: 45px;
+    background: var(--bg-color);
+    color: var(--secondary-color);
+    padding: 60px 7% 25px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 
-    margin: 0;
-    padding: 70px 5% 0;
-
-    background-color: #1D2918 !important;
-
-    color: #ffffff;
-
-    direction: rtl;
+    transition:
+        background-color 0.4s ease,
+        color 0.4s ease,
+        border-color 0.4s ease;
 }
 
 .footer-container {
     width: 100%;
-
-    display: flex;
-
-    align-items: flex-start;
-    justify-content: space-between;
-
-    gap: 60px;
-
-    padding-bottom: 50px;
-    padding-right: 50px;
+    max-width: 1400px;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 35px;
+    align-items: start;
 }
 
 .footer-column {
-    flex: 1;
-
-    min-width: 180px;
-}
-
-.footer-column:first-child {
-    flex: 1.4;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .footer-column h3 {
+    color: var(--primary-dark);
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 22px;
+    line-height: 1.7;
     position: relative;
 
-    margin: 0 0 25px;
-
-    padding-bottom: 12px;
-
-    color: var(--dark-bg) !important;
-
-    font-size: clamp(1rem, 2vw, 1.15rem);
-
-    font-weight: 700;
+    transition: color 0.4s ease;
 }
 
 .footer-column h3::after {
     content: "";
-
-    position: absolute;
-
-    right: 0;
-    bottom: 0;
-
-    width: 40px;
+    display: block;
+    width: 32px;
     height: 2px;
-
-    background-color: var(--primary-light);
-
-    border-radius: 10px;
+    background: var(--primary-light);
+    margin-top: 9px;
+    border-radius: 2px;
 }
 
 .footer-column p {
-    max-width: 300px;
-
-    margin: 0 0 12px;
-
-    color: var(--secondary-color) !important;
-
+    margin: 0;
+    color: var(--secondary-color);
+    opacity: 0.75;
     font-size: 14px;
+    line-height: 2.1;
+    max-width: 260px;
+    overflow-wrap: anywhere;
 
-    line-height: 2;
+    transition: color 0.4s ease;
+}
+
+.footer-column address {
+    color: var(--secondary-color);
+    font-style: normal;
+
+    transition: color 0.4s ease;
+}
+
+.footer-column address *,
+.footer-column .contact-info,
+.footer-column .contact-info * {
+    color: inherit;
+    font-style: normal;
+    transition: color 0.4s ease;
 }
 
 .footer-column a {
     display: block;
-
     width: fit-content;
-
-    margin-bottom: 12px;
-
-    color: var(--secondary-color) !important;
-
+    max-width: 100%;
+    margin: 0 0 12px;
+    color: var(--secondary-color);
+    opacity: 0.78;
+    font-size: 16px;
+    line-height: 1.8;
     text-decoration: none;
+    overflow-wrap: anywhere;
 
-    font-size: 14px;
-
-    transition: var(--transition);
+    transition: color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
 }
 
 .footer-column a:hover {
-    color: var(--primary-light) !important;
-
-    transform: translateX(-5px);
+    color: var(--primary-light);
+    opacity: 1;
+    transform: translateX(-4px);
 }
 
-.footer-column address {
-    color: rgba(255, 255, 255, 0.65);
 
+/* =========================================================
+   FOOTER SOCIAL
+========================================================= */
+
+.footer-social {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.footer-social a {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    color: var(--secondary-color);
+    text-decoration: none;
+
+    transition: color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+.footer-social a p {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    color: inherit;
     font-size: 14px;
+    line-height: 1.8;
 
-    font-style: normal;
-
-    line-height: 2;
+    transition: color 0.3s ease;
 }
+
+.footer-social a i {
+    font-size: 22px;
+    color: inherit;
+
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: var(--primary-light);
+    transform: translateX(-4px);
+}
+
+.footer-social a:hover p,
+.footer-social a:hover i {
+    color: var(--primary-light);
+}
+
+.footer-social a:hover i {
+    transform: scale(1.15);
+}
+
+.footer-social-column a.social-footer-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: auto;
+    height: auto;
+    margin: 0 0 20px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: var(--secondary-color);
+    text-decoration: none;
+    opacity: 0.9;
+
+    transition: color 0.25s ease, opacity 0.25s ease;
+}
+
+.footer-social-column .social-footer-link i {
+    display: inline-block;
+    color: inherit;
+    font-size: 32px;
+    line-height: 1;
+}
+
+.footer-social-column a.social-footer-link:hover {
+    color: var(--primary-light);
+    opacity: 1;
+}
+
+
+/* =========================================================
+   FOOTER COPYRIGHT
+========================================================= */
 
 .copyright {
     width: 100%;
-
-    padding: 22px 0;
-
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-
+    padding: 20px 0;
+    border-top: 1px solid var(--border-color);
     text-align: center;
 }
 
 .copyright p {
     margin: 0;
-
-    color: rgba(255, 255, 255, 0.45) !important;
-
+    color: var(--text-light);
     font-size: 13px;
+    line-height: 1.8;
 }
-
 
 /* =========================================================
    DARK MODE BUTTON
@@ -1369,9 +1669,7 @@ a[href^="tel"] {
 
 .dark-mode-toggle {
     position: absolute;
-
     opacity: 0;
-
     pointer-events: none;
 }
 
@@ -1384,7 +1682,6 @@ a[href^="tel"] {
     z-index: 2000;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
@@ -1392,7 +1689,6 @@ a[href^="tel"] {
     height: 48px;
 
     background-color: var(--primary-color);
-
     color: #ffffff;
 
     border-radius: 50%;
@@ -1406,37 +1702,36 @@ a[href^="tel"] {
 
 .dark-mode-button:hover {
     background-color: var(--primary-dark);
-
     transform: translateY(-3px);
 }
 
 
 /* =========================================================
-   DARK MODE
+   DARK MODE (GLOBAL)
 ========================================================= */
 
 body:has(#dark-mode-toggle:checked) {
-    --bg-color: #182018;
-    --surface-color: #243023;
+    --bg-color: #151B17;
+    --surface-color: #1E2620;
+    --surface-light: #2A342D;
 
-    --text-color: #F2F4ED;
-    --text-light: #B8C0B2;
+    --text-color: #E8EDE6;
+    --text-light: #A8B5A0;
 
-    --border-color: #3A4938;
+    --border-color: #354038;
 
-    --dark-bg: #101610;
-    --dark-surface: #1B261A;
+    --dark-bg: #0F1411;
+    --dark-surface: #1B241E;
+
+    --primary-light: #8FC46B;
 
     background-color: var(--bg-color);
     color: var(--text-color);
 }
 
-
 /* Header */
-
 body:has(#dark-mode-toggle:checked) .main-header {
     background-color: var(--surface-color);
-
     border-color: var(--border-color);
 }
 
@@ -1448,26 +1743,34 @@ body:has(#dark-mode-toggle:checked) .main-nav a:hover {
     color: var(--primary-light);
 }
 
-
 body:has(#dark-mode-toggle:checked) .logo a {
     color: var(--primary-light);
 }
 
+body:has(#dark-mode-toggle:checked) .top-bar {
+    background-color: var(--dark-bg);
+    border-color: rgba(255, 255, 255, 0.08);
+}
 
 /* Cards */
-
 body:has(#dark-mode-toggle:checked) .service-card,
 body:has(#dark-mode-toggle:checked) .destination-card,
 body:has(#dark-mode-toggle:checked) .destinition-cards,
 body:has(#dark-mode-toggle:checked) .blog-card {
     background-color: var(--surface-color);
-
     border-color: var(--border-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
+body:has(#dark-mode-toggle:checked) .service-card:hover,
+body:has(#dark-mode-toggle:checked) .destination-card:hover,
+body:has(#dark-mode-toggle:checked) .destinition-cards:hover,
+body:has(#dark-mode-toggle:checked) .blog-card:hover {
+    border-color: var(--primary-light);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
 
 /* Sections */
-
 body:has(#dark-mode-toggle:checked) .services,
 body:has(#dark-mode-toggle:checked) .blog {
     background-color: var(--bg-color);
@@ -1479,9 +1782,7 @@ body:has(#dark-mode-toggle:checked) .about-travelio {
     background-color: var(--surface-color);
 }
 
-
 /* Text */
-
 body:has(#dark-mode-toggle:checked) .section-title h2,
 body:has(#dark-mode-toggle:checked) .destinations > h2,
 body:has(#dark-mode-toggle:checked) .destinitions > h2,
@@ -1499,15 +1800,16 @@ body:has(#dark-mode-toggle:checked) .service-card p,
 body:has(#dark-mode-toggle:checked) .destination-card p,
 body:has(#dark-mode-toggle:checked) .destinition-cards p,
 body:has(#dark-mode-toggle:checked) .blog-card p,
-body:has(#dark-mode-toggle:checked) .about-content p {
+body:has(#dark-mode-toggle:checked) .about-content p,
+body:has(#dark-mode-toggle:checked) .about-text li {
     color: var(--text-light);
 }
 
-
-/* Search */
-
+/* Search form */
 body:has(#dark-mode-toggle:checked) .tour-search {
-    background-color: rgba(36, 48, 35, 0.97);
+    background-color: rgba(30, 38, 32, 0.98);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
 }
 
 body:has(#dark-mode-toggle:checked) .form-group label {
@@ -1516,157 +1818,320 @@ body:has(#dark-mode-toggle:checked) .form-group label {
 
 body:has(#dark-mode-toggle:checked) .form-group input,
 body:has(#dark-mode-toggle:checked) .form-group select {
-    background-color: #182018;
-
+    background-color: var(--bg-color);
     color: var(--text-color);
-
     border-color: var(--border-color);
 }
 
+body:has(#dark-mode-toggle:checked) .form-group input:focus,
+body:has(#dark-mode-toggle:checked) .form-group select:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(143, 196, 107, 0.2);
+}
 
-/* Newsletter */
-
-body:has(#dark-mode-toggle:checked) .newsletter {
+/* Hero overlay — کمی روشن‌تر */
+body:has(#dark-mode-toggle:checked) .hero::before {
     background: linear-gradient(
-        135deg,
-        #101610,
-        #1B261A
+        90deg,
+        rgba(15, 20, 17, 0.85),
+        rgba(15, 20, 17, 0.5),
+        rgba(15, 20, 17, 0.65)
     );
 }
 
+/* Newsletter */
+body:has(#dark-mode-toggle:checked) .newsletter {
+    background: linear-gradient(
+        135deg,
+        #0F1411,
+        #1B241E
+    );
+}
 
-/* Footer */
+/* Buttons hover */
+body:has(#dark-mode-toggle:checked) .login-btn:hover,
+body:has(#dark-mode-toggle:checked) .hero-button:hover,
+body:has(#dark-mode-toggle:checked) .tour-search button:hover,
+body:has(#dark-mode-toggle:checked) .more-link:hover {
+    background-color: var(--primary-light);
+    color: #151B17;
+}
+
+/* =========================================================
+   DARK MODE — FOOTER
+========================================================= */
 
 body:has(#dark-mode-toggle:checked) .footer {
-    background-color: #101610 !important;
-
-    color: #ffffff;
+    background-color: #1E2620;
+    color: #E8EDE6;
+    border-top-color: var(--border-color);
 }
 
-body:has(#dark-mode-toggle:checked) .footer-column h3 {
-    color: #ffffff !important;
+body:has(#dark-mode-toggle:checked) .footer .footer-column h3 {
+    color: var(--primary-light);
 }
 
-body:has(#dark-mode-toggle:checked) .footer-column p,
-body:has(#dark-mode-toggle:checked) .footer-column a {
-    color: rgba(255, 255, 255, 0.65) !important;
+body:has(#dark-mode-toggle:checked) .footer .footer-column h3::after {
+    background: var(--primary-light);
 }
 
-body:has(#dark-mode-toggle:checked) .footer-column a:hover {
-    color: var(--primary-light) !important;
-    transform: translateX(-5px);
+body:has(#dark-mode-toggle:checked) .footer .footer-column p,
+body:has(#dark-mode-toggle:checked) .footer .footer-column address,
+body:has(#dark-mode-toggle:checked) .footer .footer-column address *,
+body:has(#dark-mode-toggle:checked) .footer .contact-info,
+body:has(#dark-mode-toggle:checked) .footer .contact-info * {
+    color: #A8B5A0;
+    opacity: 1;
 }
 
-body:has(#dark-mode-toggle:checked) .footer-column a:hover {
-    color: #5F8F3B;
-}
-body:has(#dark-mode-toggle:checked) .footer-column address {
-    color: rgba(255, 255, 255, 0.65);
-}
-
-body:has(#dark-mode-toggle:checked) .copyright {
-    border-color: rgba(255, 255, 255, 0.12);
+body:has(#dark-mode-toggle:checked) .footer .footer-column a,
+body:has(#dark-mode-toggle:checked) .footer .footer-social a,
+body:has(#dark-mode-toggle:checked) .footer .footer-social a p,
+body:has(#dark-mode-toggle:checked) .footer .footer-social a i,
+body:has(#dark-mode-toggle:checked) .footer .footer-social-column a.social-footer-link {
+    color: #C5D1BE;
+    opacity: 1;
 }
 
-body:has(#dark-mode-toggle:checked) .copyright p {
-    color: rgba(255, 255, 255, 0.45) !important;
+body:has(#dark-mode-toggle:checked) .footer .footer-column a:hover,
+body:has(#dark-mode-toggle:checked) .footer .footer-social a:hover,
+body:has(#dark-mode-toggle:checked) .footer .footer-social a:hover p,
+body:has(#dark-mode-toggle:checked) .footer .footer-social a:hover i,
+body:has(#dark-mode-toggle:checked) .footer .footer-social-column a.social-footer-link:hover {
+    color: var(--primary-light);
+    opacity: 1;
 }
 
+body:has(#dark-mode-toggle:checked) .footer .footer-column a:hover,
+body:has(#dark-mode-toggle:checked) .footer .footer-social a:hover {
+    transform: translateX(-4px);
+}
+
+body:has(#dark-mode-toggle:checked) .footer .footer-social a:hover i {
+    transform: scale(1.15);
+}
+
+body:has(#dark-mode-toggle:checked) .footer .copyright {
+    border-top-color: var(--border-color);
+}
+
+body:has(#dark-mode-toggle:checked) .footer .copyright p {
+    color: #A8B5A0;
+}
+
+/* =========================================================
+   RESPONSIVE — FULL SITE
+   Breakpoints:
+   - 1200px : دسکتاپ کوچک
+   - 1000px : تبلت افقی
+   - 768px  : تبلت عمودی / موبایل بزرگ
+   - 480px  : موبایل
+   - 360px  : موبایل کوچک
+========================================================= */
 
 
 /* =========================================================
-   RESPONSIVE - TABLET
+   1) دسکتاپ کوچک (≤1200px)
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    /* کانتینرها */
+    .services,
+    .destinations,
+    .blog,
+    .about-travelio,
+    .newsletter {
+        padding-left: 4%;
+        padding-right: 4%;
+    }
+
+    .main-header,
+    .top-bar {
+        padding-left: 4%;
+        padding-right: 4%;
+    }
+
+    /* هیرو */
+    .hero {
+        padding: 70px 4%;
+        min-height: 600px;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(2rem, 4.5vw, 3.4rem);
+    }
+
+    .hero-content p {
+        font-size: 18px;
+    }
+
+    /* فوتر */
+    .footer {
+        padding: 55px 5% 25px;
+    }
+}
+
+
+/* =========================================================
+   2) تبلت افقی (≤1000px)
 ========================================================= */
 
 @media (max-width: 1000px) {
 
+    /* ---------- هدر ---------- */
+    .main-header {
+        min-height: 72px;
+        gap: 20px;
+    }
+
+    .main-nav {
+        gap: 18px;
+    }
+
+    .main-nav a {
+        font-size: 13px;
+    }
+
+    .login-btn {
+        padding: 10px 16px;
+        font-size: 12px;
+    }
+
+    /* ---------- هیرو ---------- */
+    .hero {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        padding: 60px 4%;
+        min-height: auto;
+    }
+
+    .hero-content,
+    .tour-search {
+        width: 100%;
+        max-width: 700px;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(1.9rem, 5vw, 2.8rem);
+    }
+
+    .hero-content p {
+        font-size: 17px;
+        max-width: 100%;
+    }
+
+    /* ---------- خدمات ---------- */
+    .service-container {
+        gap: 18px;
+    }
+
+    .service-card {
+        min-width: 200px;
+        padding: 26px 20px;
+    }
+
+    /* ---------- مقاصد ---------- */
     .destination-container {
         grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
     }
 
+    /* ---------- وبلاگ ---------- */
     .blog-container {
         grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
     }
 
-    .hero-content {
-        width: 48%;
+    .blog-card img {
+        height: 260px;
     }
 
-    .tour-search {
-        width: 45%;
-    }
-
+    /* ---------- درباره ---------- */
     .about-content {
         gap: 30px;
     }
 
-    .footer-container {
+    .about-text h3 {
+        font-size: 20px;
+    }
+
+    /* ---------- خبرنامه ---------- */
+    .newsletter-content {
         gap: 30px;
+    }
+
+    /* ---------- فوتر ---------- */
+    .footer-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 40px 25px;
     }
 }
 
 
 /* =========================================================
-   RESPONSIVE - MOBILE
+   3) تبلت عمودی / موبایل بزرگ (≤768px)
 ========================================================= */
 
 @media (max-width: 768px) {
 
-    /* TOP BAR */
-
+    /* ---------- TOP BAR ---------- */
     .top-bar {
-        padding: 8px 5%;
-
         flex-direction: column;
-
-        gap: 5px;
+        gap: 6px;
+        padding: 8px 4%;
+        text-align: center;
     }
 
     .contact-info,
     .social-links {
-        gap: 12px;
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
+    .top-bar a {
+        font-size: 12px;
+    }
 
-    /* HEADER */
-
+    /* ---------- HEADER ---------- */
     .main-header {
-        min-height: 70px;
-
         position: relative;
+        min-height: 68px;
+        padding: 0 4%;
+        gap: 15px;
     }
 
+    .logo a {
+        font-size: 20px;
+    }
+
+    .logo a i {
+        font-size: 19px;
+    }
+
+    /* منوی موبایل */
     .menu-button {
         display: flex;
-
         order: 2;
+        margin-right: auto;
     }
 
     .main-nav {
         display: none;
-
         position: absolute;
-
         top: 100%;
         right: 0;
-
+        left: 0;
         width: 100%;
-
-        padding: 20px 5%;
-
+        padding: 18px 5%;
         flex-direction: column;
-
         align-items: flex-start;
-
-        gap: 16px;
-
+        gap: 14px;
         background-color: var(--surface-color);
-
         border-top: 1px solid var(--border-color);
-
-        box-shadow:
-            0 12px 30px rgba(38, 53, 31, 0.15);
-
+        box-shadow: 0 12px 30px rgba(38, 53, 31, 0.15);
         z-index: 999;
     }
 
@@ -1676,8 +2141,8 @@ body:has(#dark-mode-toggle:checked) .copyright p {
 
     .main-nav a {
         width: 100%;
-
         padding: 8px 0;
+        font-size: 14px;
     }
 
     .main-nav a.active::after {
@@ -1688,95 +2153,181 @@ body:has(#dark-mode-toggle:checked) .copyright p {
         display: none;
     }
 
-
-    /* HERO */
-
+    /* ---------- HERO ---------- */
     .hero {
-        min-height: auto;
-
-        padding: 60px 5%;
-
-        flex-direction: column;
-
-        gap: 40px;
-    }
-
-    .hero-content {
-        width: 100%;
-
-        text-align: center;
+        padding: 50px 5%;
+        gap: 30px;
     }
 
     .hero-content h1 {
-        font-size: clamp(2rem, 8vw, 3rem);
+        font-size: clamp(1.7rem, 7vw, 2.4rem);
+        letter-spacing: -0.5px;
     }
 
     .hero-content p {
-        font-size: 16px;
+        font-size: 15px;
+        line-height: 1.8;
+        margin-bottom: 22px;
     }
 
+    .hero-button {
+        padding: 11px 22px;
+        font-size: 13px;
+    }
+
+    /* فرم جستجو */
     .tour-search {
-        width: 100%;
-
-        padding: 20px;
+        padding: 18px;
+        border-radius: 18px;
+        gap: 12px;
     }
 
+    .form-group {
+        flex: 1 1 100%;
+        gap: 5px;
+    }
 
-    /* SERVICES */
+    .form-group label {
+        font-size: 12px;
+    }
 
+    .form-group input,
+    .form-group select {
+        height: 42px;
+        font-size: 13px;
+    }
+
+    .tour-search button {
+        height: 44px;
+        font-size: 13px;
+    }
+
+    /* ---------- TITLES ---------- */
+    .section-title {
+        margin-bottom: 32px;
+        padding: 0 4%;
+    }
+
+    .section-title h2 {
+        font-size: clamp(1.5rem, 4.5vw, 1.9rem);
+        margin-bottom: 10px;
+    }
+
+    .section-title p {
+        font-size: 14px;
+    }
+
+    /* ---------- SERVICES ---------- */
     .services {
-        padding: 60px 5%;
+        padding: 55px 5%;
     }
 
     .service-container {
         flex-direction: column;
+        gap: 16px;
     }
 
     .service-card {
         width: 100%;
+        min-width: 0;
+        padding: 24px 20px;
     }
 
+    .service-card i {
+        width: 52px;
+        height: 52px;
+        font-size: 21px;
+        margin-bottom: 14px;
+    }
 
-    /* DESTINATIONS */
+    .service-card h3 {
+        font-size: 17px;
+    }
 
-    .destinations,
-    .destinitions {
-        padding: 60px 5%;
+    .service-card p {
+        font-size: 13.5px;
+    }
+
+    /* ---------- DESTINATIONS ---------- */
+    .destinations {
+        padding: 55px 5%;
     }
 
     .destination-container {
         grid-template-columns: 1fr;
+        gap: 18px;
     }
 
     .destination-card img,
     .destinition-cards img {
-        height: 250px;
+        height: 240px;
     }
 
+    .destination-card h3,
+    .destinition-cards h3 {
+        font-size: 18px;
+        padding: 16px 16px 6px;
+    }
 
-    /* BLOG */
+    .destination-card p,
+    .destinition-cards p {
+        padding: 0 16px 6px;
+        font-size: 13.5px;
+    }
 
+    .destination-card a,
+    .destinition-cards a {
+        margin: 0 16px 16px;
+        font-size: 13.5px;
+    }
+
+    /* ---------- BLOG ---------- */
     .blog {
-        padding: 60px 5%;
+        padding: 55px 5%;
     }
 
     .blog-container {
         grid-template-columns: 1fr;
+        gap: 18px;
     }
 
     .blog-card img {
-        height: 300px;
+        height: 240px;
     }
 
+    .blog-card h3 {
+        margin: 16px 16px 6px;
+        font-size: 17px;
+    }
 
-    /* ABOUT */
+    .blog-card time {
+        margin: 0 16px 10px;
+        font-size: 12px;
+    }
 
+    .blog-card p {
+        margin: 0 16px 14px;
+        font-size: 13.5px;
+    }
+
+    .read-more {
+        margin: 0 16px 18px;
+        font-size: 13.5px;
+    }
+
+    /* ---------- ABOUT ---------- */
     .about-travelio {
-        padding: 60px 5%;
+        padding: 55px 5%;
+    }
+
+    .about-travelio > h2 {
+        margin-bottom: 32px;
+        font-size: clamp(1.5rem, 4.5vw, 1.9rem);
     }
 
     .about-content {
         flex-direction: column;
+        gap: 30px;
     }
 
     .about-text,
@@ -1784,212 +2335,490 @@ body:has(#dark-mode-toggle:checked) .copyright p {
         width: 100%;
     }
 
+    .about-text h3 {
+        font-size: 19px;
+    }
+
+    .about-text p,
+    .about-text li {
+        font-size: 14px;
+    }
+
     .about-image img {
-        height: 300px;
+        height: 280px;
     }
 
-
-    /* NEWSLETTER */
-
+    /* ---------- NEWSLETTER ---------- */
     .newsletter {
-        width: 90%;
-
-        padding: 40px 25px;
-
-        margin: 60px auto;
+        padding: 45px 5%;
+        margin: 40px auto;
     }
 
-    .newsletter-form input {
+    .newsletter-content {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 25px;
+    }
+
+    .newsletter-text h2 {
+        font-size: clamp(1.3rem, 4.5vw, 1.7rem);
+    }
+
+    .newsletter-text p {
+        font-size: 14px;
+    }
+
+    .newsletter-form {
+        max-width: 100%;
+    }
+
+    .newsletter-input-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .newsletter-input-group input {
         width: 100%;
+        padding: 12px 16px;
     }
 
-    .newsletter-form button {
+    .newsletter-input-group button {
         width: 100%;
-
-        margin-top: 10px;
-        margin-right: 0;
+        justify-content: center;
+        padding: 12px 18px;
     }
 
-
-    /* FOOTER */
-
+    /* ---------- FOOTER ---------- */
     .footer {
-        padding: 55px 5% 0;
+        margin-top: 30px;
+        padding: 45px 6% 20px;
     }
 
     .footer-container {
-        flex-direction: column;
-
-        gap: 35px;
-
-        padding-right: 0;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px 22px;
+        margin: 20px auto;
     }
 
-    .footer-column {
-        width: 100%;
+    .footer-column h3 {
+        font-size: 16px;
+        margin-bottom: 18px;
+    }
+
+    .footer-column p,
+    .footer-column a {
+        font-size: 13px;
     }
 
     .footer-column p {
-        max-width: 100%;
-    
+        line-height: 1.9;
     }
 
+    .footer-column a {
+        margin-bottom: 10px;
+    }
 
-    /* DARK MODE BUTTON */
+    .footer-social-column .social-footer-link i {
+        font-size: 26px;
+    }
 
+    .footer .copyright {
+        margin-top: 24px;
+        padding: 16px 0 0;
+    }
+
+    .footer .copyright p {
+        font-size: 12px;
+    }
+
+    /* ---------- DARK MODE BUTTON ---------- */
     .dark-mode-button {
-        left: 18px;
-        bottom: 18px;
-
+        left: 16px;
+        bottom: 16px;
         width: 44px;
         height: 44px;
+        font-size: 16px;
     }
 }
 
 
 /* =========================================================
-   SMALL MOBILE
+   4) موبایل (≤480px)
 ========================================================= */
 
 @media (max-width: 480px) {
 
-    .logo a {
-        font-size: 21px;
+    /* ---------- TOP BAR ---------- */
+    .top-bar {
+        padding: 6px 4%;
     }
 
+    .top-bar a {
+        font-size: 11px;
+    }
+
+    .social-links i {
+        font-size: 17px;
+    }
+
+    /* ---------- HEADER ---------- */
+    .main-header {
+        min-height: 62px;
+        padding: 0 4%;
+    }
+
+    .logo a {
+        font-size: 18px;
+        gap: 7px;
+    }
+
+    .logo a i {
+        font-size: 17px;
+    }
+
+    .menu-button {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+    }
+
+    /* ---------- HERO ---------- */
     .hero {
-        padding: 50px 5%;
+        padding: 40px 5%;
+        gap: 25px;
     }
 
     .hero-content h1 {
-        font-size: 2rem;
+        font-size: 1.6rem;
+        line-height: 1.3;
+        margin-bottom: 14px;
     }
 
     .hero-content p {
-        font-size: 15px;
+        font-size: 14px;
+        margin-bottom: 20px;
     }
 
+    .hero-button {
+        padding: 10px 20px;
+        font-size: 12.5px;
+    }
+
+    /* فرم جستجو */
     .tour-search {
-        padding: 16px;
+        padding: 15px;
+        border-radius: 16px;
     }
 
-    .form-group {
-        flex: 1 1 100%;
+    .form-group input,
+    .form-group select {
+        height: 40px;
+        font-size: 12.5px;
+    }
+
+    .tour-search button {
+        height: 42px;
+        font-size: 13px;
+    }
+
+    /* ---------- TITLES ---------- */
+    .section-title {
+        margin-bottom: 26px;
+    }
+
+    .section-title h2 {
+        font-size: 1.4rem;
+    }
+
+    .section-title p {
+        font-size: 13px;
+    }
+
+    /* ---------- SERVICES ---------- */
+    .services {
+        padding: 45px 5%;
+    }
+
+    .service-card {
+        padding: 22px 18px;
+    }
+
+    .service-card i {
+        width: 48px;
+        height: 48px;
+        font-size: 19px;
+    }
+
+    .service-card h3 {
+        font-size: 16px;
+    }
+
+    .service-card p {
+        font-size: 13px;
+    }
+
+    /* ---------- DESTINATIONS ---------- */
+    .destinations {
+        padding: 45px 5%;
     }
 
     .destination-card img,
     .destinition-cards img {
-        height: 220px;
+        height: 200px;
+    }
+
+    /* ---------- BLOG ---------- */
+    .blog {
+        padding: 45px 5%;
     }
 
     .blog-card img {
-        height: 250px;
+        height: 200px;
     }
 
+    .blog-card h3 {
+        font-size: 16px;
+    }
+
+    .blog-card p {
+        font-size: 13px;
+    }
+
+    /* ---------- ABOUT ---------- */
+    .about-travelio {
+        padding: 45px 5%;
+    }
+
+    .about-image img {
+        height: 220px;
+    }
+
+    .about-text h3 {
+        font-size: 17px;
+    }
+
+    .about-text p,
+    .about-text li {
+        font-size: 13.5px;
+    }
+
+    /* ---------- NEWSLETTER ---------- */
     .newsletter {
-        padding: 35px 18px;
+        padding: 35px 5%;
+        margin: 30px auto;
     }
 
-    .top-bar {
-        font-size: 12px;
+    .newsletter-label {
+        font-size: 11px;
+    }
+
+    .newsletter-text h2 {
+        font-size: 1.25rem;
+    }
+
+    .newsletter-text p {
+        font-size: 13px;
+    }
+
+    .newsletter-input-group input {
+        padding: 11px 14px;
+        font-size: 13px;
+    }
+
+    .newsletter-input-group button {
+        padding: 11px 16px;
+        font-size: 13px;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer {
+        padding: 40px 6% 18px;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 26px;
+    }
+
+    .footer-column h3 {
+        font-size: 15px;
+        margin-bottom: 14px;
+    }
+
+    .footer-column p,
+    .footer-column a {
+        font-size: 13px;
+    }
+
+    .footer-column p {
+        max-width: 100%;
+    }
+
+    .footer-social {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .footer-social a {
+        width: auto;
+    }
+
+    .footer-social a p {
+        font-size: 12.5px;
+    }
+
+    .footer-social a i {
+        font-size: 20px;
+    }
+
+    .footer-social-column {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .footer-social-column h3 {
+        width: 100%;
+        margin-bottom: 4px;
+    }
+
+    .footer-social-column a.social-footer-link {
+        margin: 0;
+    }
+
+    .footer-social-column .social-footer-link i {
+        font-size: 26px;
+    }
+
+    .footer .copyright {
+        margin-top: 20px;
+        padding: 14px 0 0;
+    }
+
+    .footer .copyright p {
+        font-size: 11.5px;
+    }
+
+    /* ---------- DARK MODE BUTTON ---------- */
+    .dark-mode-button {
+        width: 42px;
+        height: 42px;
+        left: 14px;
+        bottom: 14px;
+        font-size: 15px;
     }
 }
 
 
 /* =========================================================
-   REDUCED MOTION
+   5) موبایل کوچک (≤360px)
 ========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 360px) {
 
-    html {
-        scroll-behavior: auto;
+    .logo a {
+        font-size: 16px;
     }
 
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+    .hero-content h1 {
+        font-size: 1.4rem;
+    }
+
+    .hero-content p {
+        font-size: 13px;
+    }
+
+    .section-title h2 {
+        font-size: 1.25rem;
+    }
+
+    .service-card h3,
+    .destination-card h3,
+    .blog-card h3 {
+        font-size: 15px;
+    }
+
+    .about-image img,
+    .blog-card img,
+    .destination-card img,
+    .destinition-cards img {
+        height: 170px;
+    }
+
+    .newsletter-text h2 {
+        font-size: 1.15rem;
+    }
+
+    .footer-column h3 {
+        font-size: 14px;
+    }
+
+    .footer-column p,
+    .footer-column a {
+        font-size: 12.5px;
     }
 }
 
+
 /* =========================================================
-   MOBILE
+   6) تنظیمات عمومی موبایل و لمسی
 ========================================================= */
 
 @media (max-width: 768px) {
 
-    .main-header {
-        min-height: 70px;
-        padding: 15px 5%;
+    /* جلوگیری از زوم ناخواسته روی input در iOS */
+    input,
+    select,
+    textarea {
+        font-size: 16px !important;
     }
 
-    .logo a {
-        font-size: 20px;
+    /* دکمه‌های لمسی بزرگ‌تر */
+    .main-nav a,
+    .footer-column a,
+    .footer-social a,
+    .social-links a {
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
     }
 
-    .menu-button {
-        display: flex;
+    /* اسکرول افقی در جدول‌ها و کدها */
+    pre,
+    table {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
-    .main-nav {
-        gap: 0;
+    /* فوکوس بهتر روی لینک‌ها */
+    a:focus-visible,
+    button:focus-visible {
+        outline-offset: 2px;
     }
-
-    .main-nav a {
-        font-size: 15px;
-        padding: 12px 20px;
-    }
-
-    .main-nav a::after {
-        bottom: 5px;
-        right: 20px;
-        width: calc(100% - 40px);
-    }
-
-    .login-btn {
-        padding: 9px 13px;
-        font-size: 12px;
-    }
-
 }
 
 
 /* =========================================================
-   SMALL MOBILE
+   7) چاپ (اختیاری)
 ========================================================= */
 
-@media (max-width: 480px) {
+@media print {
 
-    .main-header {
-        padding: 13px 4%;
+    .top-bar,
+    .main-header,
+    .hero,
+    .tour-search,
+    .services,
+    .newsletter,
+    .footer,
+    .dark-mode-button,
+    .modal {
+        display: none !important;
     }
 
-    .logo a {
-        font-size: 18px;
+    body {
+        background: #fff;
+        color: #000;
     }
-
-    .menu-button {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-    }
-
-    .main-nav a {
-        font-size: 14px;
-        padding: 11px 18px;
-    }
-
-    .main-nav a::after {
-        right: 18px;
-        width: calc(100% - 36px);
-    }
-
-    .login-btn {
-        padding: 8px 10px;
-        font-size: 11px;
-    }
-
 }
